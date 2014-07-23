@@ -50,6 +50,10 @@ function toCommonJS(name, compiled) {
 }
 
 
+function toES6(name, compiled) {
+    return 'import Ember from ember; \n export default Ember.TEMPLATES["'.concat(name, '"] = ', compiled);
+}
+
 module.exports = function (options) {
   var outputType = options.outputType || 'browser', // amd, browser, cjs
       namespace = options.namespace || 'Ember.TEMPLATES',
@@ -106,6 +110,8 @@ module.exports = function (options) {
     case 'cjs':
       compiled = toCommonJS(name, compiled);
       break;
+    case 'es6':
+      compiled = toES6(name, compiled);
     default:
       callback(new Error('Invalid output type: ' + outputType));
     }
