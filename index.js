@@ -21,7 +21,7 @@ var defaultProcessName = function (name) {
  */
 function toAMD(templateRoot, name, compiled) {
   // 'define("<%= moduleName %>", function () { return Ember.TEMPLATES["<%= name %>"] = <%= compiled %> });'
-  return 'define("'.concat(templateRoot, '/', name, '", function () { return Ember.TEMPLATES["', name, '"] = ', compiled, ' });');
+  return 'define("'.concat(templateRoot, '/', name, '", [ "ember", "exports" ], function () { return Ember.TEMPLATES["', name, '"] = ', compiled, ' });');
 }
 
 
