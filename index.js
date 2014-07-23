@@ -21,7 +21,7 @@ var defaultProcessName = function (name) {
  */
 function toAMD(templateRoot, name, compiled) {
   // 'define("<%= moduleName %>", function () { return Ember.TEMPLATES["<%= name %>"] = <%= compiled %> });'
-  return 'define("'.concat(templateRoot, '/', name, '", [ "ember", "exports" ], function (ember, exports) { return Ember.TEMPLATES["', name, '"] = ', compiled, ' });');
+  return 'define("'.concat(templateRoot, '/', name, '", [ "ember", "exports" ], function (__dependency1__, __exports__) { var Ember = __dependency1__["default"]; __exports__["default"] = Ember.TEMPLATES["', name, '"] = ', compiled, ' });');
 }
 
 
@@ -112,6 +112,7 @@ module.exports = function (options) {
       break;
     case 'es6':
       compiled = toES6(name, compiled);
+      break;
     default:
       callback(new Error('Invalid output type: ' + outputType));
     }
